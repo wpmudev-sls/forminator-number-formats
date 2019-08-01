@@ -4,7 +4,7 @@
  * Version: 1.0.0
  * Plugin URI:  https://premium.wpmudev.org/project/forminator/
  * Description: Adds number formats to Forminator Input fields. It currently can be used only for Forminator's Input fields (normal textboxes), so it won't work with Number, Phone or other fields. Uses https://nosir.github.io/cleave.js/
- * Author: Panos Lyrakis @ WPMUDEV
+ * Author: Panos Lyrakis & Tho Bui @ WPMUDEV
  * Author URI: http://premium.wpmudev.org
  */
 
