@@ -11,7 +11,7 @@
 			// Custom Phone Format = xxx-xxx-xxxx
 			if( _form_el.find('.phone .forminator-input').length ){
 				var cleave_phone = new Cleave(_form +' .phone .forminator-input', {
-					prefix: '+',
+					//prefix: '+',
 				    delimiters: ['-', '-'],
 				    blocks: [3, 3, 4 ],
 				    uppercase: true
