@@ -27,13 +27,13 @@
 			}
 
 			// Format = xxx,xxx,xxx....
-			// if( _form_el.find('.currency .forminator-input').length ){			
-				// var cleave_currency = new Cleave(_form +' .currency .forminator-input', {
-				// 	prefix: '$',
-				// 	numeral: true,
-				// 	numeralThousandsGroupStyle: 'thousand'
-				// });	
-			// }
+			 if( _form_el.find('.currency .forminator-input').length ){			
+				 var cleave_currency = new Cleave(_form +' .currency .forminator-input', {
+				 	prefix: '$',
+				 	numeral: true,
+				 	numeralThousandsGroupStyle: 'thousand'
+				 });	
+			 }
 
 			/*
 			if( _form_el.find('.credit-card .forminator-input').length ){					
