@@ -3,77 +3,29 @@
  * Plugin Name: [ Forminator ] - Number Formats
  * Version: 1.0.0
  * Plugin URI:  https://premium.wpmudev.org/project/forminator/
+ * Task: 0/11289012348292/1163187145138285
  * Description: Adds number formats to Forminator Input fields. It currently can be used only for Forminator's Input fields (normal textboxes), so it won't work with Number, Phone or other fields. Uses https://nosir.github.io/cleave.js/
  * Author: Panos Lyrakis & Tho Bui @ WPMUDEV
  * Author URI: http://premium.wpmudev.org
  */
 
 class WPMUDEV_Forminator_Number_Formats {
-
 	/**
 	 * Store the WPMUDEV_Forminator_Number_Formats object for singleton implement
 	 *
 	 * @var WPMUDEV_Forminator_Number_Formats
 	 */
 	private static $_instance;
+
 	/**
 	 * @var string
 	 */
 	private $plugin_name = 'wpmudev_forminator_number_formats';
-	/**
-	 * @var string
-	 */
-	private $plugin_path;
-
-	/**
-	 * @return string
-	 */
-	public function getPluginPath() {
-		return $this->plugin_path;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getPluginUrl() {
-		return $this->plugin_url;
-	}
-
-	/**
-	 * @var string
-	 */
-	private $plugin_url;
-
-	/**
-	 * @var string
-	 */
-	//public $domain = 'wpmudev_forminator_number_formats';
 
 	/**
 	 * @var string
 	 */
 	public $version = "1.0.0";
-
-	/**
-	 * @var string
-	 */
-	public $db_version = "1.0.0";
-
-	/**
-	 * @var string
-	 */
-	public $isFree = false;
-
-	/**
-	 * @var array
-	 */
-	public $global = array();
-
-	/**
-	 * @var string
-	 */
-	private static $plugin_slug = 'forminator-number-formats/forminator-number-formats.php';
-
 
 	/**
 	 * @return WPMUDEV_Forminator_Number_Formats
@@ -86,24 +38,26 @@ class WPMUDEV_Forminator_Number_Formats {
 		return self::$_instance;
 	}
 
+	public $loaded_assets = false;
+
 	/**
 	 * WP_Sites constructor.
 	 */
 	private function __construct() {
-		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+		add_action( 'forminator_before_form_render', array( $this, 'maybe_enqueue_scripts' ), 10, 2 );
+		add_filter( 'forminator_render_form_placeholder_markup', array( $this, 'maybe_enqueue_scripts' ), 10, 2 );
 	}
 
-	public function enqueue_scripts() {
+	public function maybe_enqueue_scripts( $content, $form_type ){
+		if( ! $this->loaded_assets && 'custom-form' === $form_type ){
+			$this->loaded_assets = 1;
 
-		global $post;
-		if( is_a( $post, 'WP_Post' ) && has_shortcode( $post->post_content, 'forminator_form' ) ) {
 			wp_enqueue_script( "{$this->plugin_name}-cleave", plugin_dir_url( __FILE__ ) . 'js/cleave/cleave.min.js', array( 'jquery' ), $this->version, true );
 			wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/front.js', array( 'jquery' ), $this->version, true );
 		}
-		
 
+		return $content;
 	}
-
 
 }
 
